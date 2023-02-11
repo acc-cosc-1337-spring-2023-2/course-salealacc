@@ -12,3 +12,14 @@ TEST_CASE("Verify sum_numbers function")
 	REQUIRE(add_numbers(10, 10) == 20);
 }
 
+TEST_CASE("Test get salest tax") 
+{
+	REQUIRE(get_sales_tax_amount(10) == 0.675);
+	REQUIRE(get_sales_tax_amount(20) == 1.35);
+}
+
+TEST_CASE("Test get tip amount") 
+{
+	REQUIRE(get_tip_amount(20, 0.15) == 3);
+	REQUIRE(get_tip_amount(20, 0.2) == 4);
+}
