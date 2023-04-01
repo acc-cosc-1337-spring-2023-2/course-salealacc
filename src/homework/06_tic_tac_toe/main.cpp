@@ -16,6 +16,8 @@ void titlescreen(string &first_player)
 void gameloop(TicTacToe game) 
 {
 	int position;
+	string winner;
+
 	do {
 		cout << "Player " << game.get_player() << " enter a position (1 - 9 to play, 0 to quit): ";
 		cin >> position;
@@ -25,7 +27,11 @@ void gameloop(TicTacToe game)
 			game.display_board();
 		}
 	} while(position != 0 && !game.game_over());
+
+	winner = game.get_winner();
+
 	cout << "END OF GAME\n";
+	cout << "WINNER: " << winner << "\n";
 }
 
 

@@ -15,14 +15,22 @@ class TicTacToe
         void mark_board(int position);
         string get_player() const;
         void display_board() const;
+        string get_winner() const;
 
     private:
         string player;
+        string winner;
         vector<string> pegs = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
 
         void set_next_player();
+        void set_winner();
+
         bool check_board_full();
         void clear_board();
+
+        bool check_diagonal_win();
+        bool check_row_win(int row);
+        bool check_column_win(int column);
 };
 
 #endif
