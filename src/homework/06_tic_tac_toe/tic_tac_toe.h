@@ -2,19 +2,22 @@
 #include<string>
 #include<vector>
 
-using std::string, std::vector;
+using std::string, std::vector, std::ostream, std::istream;
 
 #ifndef TICTACTOE_H
 #define TICTACTOE_H
 
 class TicTacToe
 {
+
+    friend ostream& operator<<(ostream& out, const TicTacToe& game);
+    friend istream& operator>>(istream& in, TicTacToe& game);
+
     public:
         bool game_over();
         void start_game(string first_player);
         void mark_board(int position);
         string get_player() const;
-        void display_board() const;
         string get_winner() const;
 
     private:

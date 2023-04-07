@@ -1,3 +1,4 @@
+#include "tic_tac_toe_manager.h"
 #include "tic_tac_toe.h"
 #include <iostream>
 #include <string>
@@ -13,25 +14,17 @@ void titlescreen(string &first_player)
 	} while (first_player != "X" && first_player != "O");
 }
 
-void gameloop(TicTacToe game) 
+void gameloop(TicTacToe& game, TicTacToeManager& manager) 
 {
-	int position;
-	string winner;
-
 	do {
-		cout << "Player " << game.get_player() << " enter a position (1 - 9 to play, 0 to quit): ";
-		cin >> position;
-		
-		if (position != 0) {
-			game.mark_board(position);
-			game.display_board();
-		}
-	} while(position != 0 && !game.game_over());
-
-	winner = game.get_winner();
+		cin >> game;
+		cout << game;
+	} while (!game.game_over());
 
 	cout << "END OF GAME\n";
-	cout << "WINNER: " << winner << "\n";
+	cout << "WINNER: " << game.get_winner() << "\n";
+
+	manager.save_game(game);
 }
 
 
@@ -40,6 +33,8 @@ int main()
 	string first_player;
 	char prompt;
 	TicTacToe game;
+	TicTacToeManager manager;
+	int owins, xwins, ties;
 
 	do {
 
@@ -47,12 +42,18 @@ int main()
 
 		game.start_game(first_player);
 
-		gameloop(game);
+		gameloop(game, manager);
+
+		manager.get_winner_total(owins, xwins, ties);
+		cout << "SCORE: X - " << xwins << " | O - " << owins << " | Ties - " << ties << "\n"; 
 
 		cout << "Do you want to play again? (y/n): ";
 		cin >> prompt;
 
 	} while (tolower(prompt) == 'y');
+
+	cout << "SESSION OVERVIEW:\n";
+	cout << manager;
 
 	return 0;
 }
