@@ -1,41 +1,28 @@
 #include "tic_tac_toe.h"
 #include<iostream>
+#include<cmath>
 
 using std::cout, std::cin, std::ostream, std::istream;
 
 //cpp
-bool TicTacToe::check_row_win(int row) {
-    auto pivot = 3*row;
-    if (pegs[pivot] != " ") {
-        return pegs[pivot] == pegs[pivot+1] &&
-               pegs[pivot] == pegs[pivot+2];
-    } else {
-        return false;
-    }
+bool TicTacToe::check_row_win(int row)
+{
+    return false;
 }
 
-bool TicTacToe::check_column_win(int column) {
-    if(pegs[column] != " ") {
-        return pegs[column] == pegs[column+3] && 
-               pegs[column] == pegs[column+6];
-    } else {
-        return false;
-    }
+bool TicTacToe::check_column_win(int column)
+{
+    return false;
 }
 
 bool TicTacToe::check_diagonal_win() 
 {   
-    if(pegs[4] != " ") {
-        return (pegs[0] == pegs[4] && pegs[4] == pegs[8]) || 
-               (pegs[2] == pegs[4] && pegs[4] == pegs[6]);
-    } else {
-        return false;
-    }
+    return false;
 }
 
 bool TicTacToe::game_over() {
 
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < sqrt(pegs.size()); i++) {
         if (check_row_win(i) || check_column_win(i)) {
             set_winner();
             return true;
@@ -99,7 +86,7 @@ void TicTacToe::set_winner() {
     }
 }
 
-bool TicTacToe::check_board_full()
+bool TicTacToe::check_board_full() const
 {
     
     bool isFull = true;
@@ -124,11 +111,12 @@ void TicTacToe::clear_board()
 ostream& operator<<(ostream& out, const TicTacToe& game)
 {
     int length = game.pegs.size();
+    int vdimension = sqrt(length);
     for (auto i = 0; i < length; i++) 
     {
         out << game.pegs[i];
 
-        if (!((i+1) % 3)) {
+        if (!((i+1) % vdimension)) {
             out << "\n";
         } else {
             out << " | ";
@@ -142,8 +130,16 @@ ostream& operator<<(ostream& out, const TicTacToe& game)
 istream& operator>>(istream& in, TicTacToe& game)
 {
     int position;
+    int vdimension = sqrt(game.pegs.size());
+    string prompt_position;
 
-    cout << "Player " << game.get_player() << " enter a position (1 - 9 to play): ";
+    if (vdimension == 4) {
+        prompt_position = " enter a position (1 - 16 to play): ";
+    } else {
+        prompt_position = " enter a position (1 - 9 to play): ";
+    }
+    
+    cout << "Player " << game.get_player() << prompt_position;
     
     cin >> position;
     
