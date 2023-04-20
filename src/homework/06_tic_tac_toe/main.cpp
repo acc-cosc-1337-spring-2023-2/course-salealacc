@@ -2,6 +2,7 @@
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.h"
+#include "tic_tac_toe_data.h"
 #include <iostream>
 #include <string>
 #include <memory>
@@ -50,7 +51,9 @@ int main()
 	string first_player;
 	char prompt;
 	unique_ptr<TicTacToe> game;
-	TicTacToeManager manager;
+	TicTacToeData data;
+	TicTacToeManager manager(data);
+
 	int owins, xwins, ties;
 
 	do {
@@ -69,7 +72,7 @@ int main()
 
 	} while (tolower(prompt) == 'y');
 
-	cout << "SESSION OVERVIEW:\n";
+	cout << "GAME HISTORY:\n";
 	cout << manager;
 
 	return 0;

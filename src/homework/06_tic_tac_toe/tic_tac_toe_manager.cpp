@@ -1,10 +1,24 @@
 #include<iostream>
 #include<memory>
 #include"tic_tac_toe_manager.h"
+#include "tic_tac_toe_data.h"
 
 using std::cout, std::string, std::ostream,
       std::unique_ptr, std::move;
 //cpp
+
+TicTacToeManager::TicTacToeManager(TicTacToeData& d) : data(d)
+{
+    for (auto& game : data.get_games())
+    {
+        save_game(game);
+    }
+}
+
+TicTacToeManager::~TicTacToeManager()
+{
+    data.save_games(games);
+}
 
 void TicTacToeManager::save_game(unique_ptr<TicTacToe>& game)
 {

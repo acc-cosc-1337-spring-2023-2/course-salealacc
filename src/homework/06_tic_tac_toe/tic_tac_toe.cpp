@@ -64,10 +64,15 @@ string TicTacToe::get_player() const
     return player;
 }
 
- string TicTacToe::get_winner() const 
- {
+string TicTacToe::get_winner() const 
+{
     return winner;
- };
+};
+
+vector<string> TicTacToe::get_pegs() const
+{
+    return pegs;
+}
 
 void TicTacToe::set_next_player()
 {
